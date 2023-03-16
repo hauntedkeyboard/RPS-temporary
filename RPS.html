@@ -1,0 +1,192 @@
+
+
+<script>
+
+    //Create a function to make a string lowercase, and then capitalize the first letter
+
+    function format(string) {
+        string = string.toLowerCase();
+        return (string.charAt(0).toUpperCase() + string.slice(1));
+    };
+
+    //Create a function that checks wether user's input is valid
+
+    function isValidChoice(string) {
+        string = format(string);
+        if ((string === 'Rock') || (string === 'Paper') || (string === 'Scissors')) {
+            return true;
+        } else {
+            return false;
+        };
+    };
+
+    //Create a function that gets player's input, checks for validity and returns it
+
+    function getPlayerChoice() {
+        selection = format((prompt('Rock, Paper or Scissors?')));
+
+    
+        if (!isValidChoice(selection)) {
+            while (!isValidChoice(selection)) {
+                alert('Please, adhere to the provided choices, Test Subject #782!');
+                selection = format((prompt('Rock, Paper or Scissors?')));
+            }
+        };        
+        return selection;
+    };
+    
+
+    //Create a function that gets computer's choice
+
+    function getComputerChoice() {
+        //generate a random number from 1 to 3
+        randomNumber = (Math.floor(Math.random() * 3) + 1);
+
+        if (randomNumber === 1) {
+            computerSelection = 'Rock'
+        } else if (randomNumber === 2) {
+            computerSelection = 'Paper'
+        } else if (randomNumber === 3) {
+            computerSelection = 'Scissors'
+        } else {
+            alert('Something went wrong with computer selection')
+        };
+
+        return computerSelection;
+    };
+
+    
+    /*Create a function playRound() that plays a single round with two parameters: playerSelection and computerSelection 
+    and returns the results formatted in this way: "You Lose! Paper beats Rock". 
+    NOTE 1: make sure that playerSelection is case insensitive
+    NOTE 2: function should _return_ the result*/
+
+    //console.log(getPlayerChoice());
+    
+    //function playRound(playerSelection, computerSelection) {}
+
+    
+
+    function playRound(playerSelection, computerSelection) {
+    
+        let playerWin = 0;
+        let computerWin = 0;
+
+        if (computerSelection === 'Rock') {
+            switch (playerSelection) {
+                case 'Rock':
+                    console.log('Rock, sadly, does not beat Rock. A draw.');
+                    break;
+
+                case 'Paper':
+                    console.log('Paper beats Rock. Congrats.');
+                    playerWin++;
+                    break;
+
+                case 'Scissors':
+                    console.log('Scissors suck. Rock wins.');
+                    computerWin++;
+                    break;
+            };
+        }
+        
+        else if (computerSelection === 'Paper') {
+
+                switch (playerSelection) {
+
+                    case 'Rock':
+                        console.log('Rock definitely does not beat Paper. You lose.');
+                        computerWin++;
+                        break;
+
+                    case 'Paper':
+                        console.log('Paper beats Paper. Oh wait. A draw.');
+                        break;
+
+                    case 'Scissors':
+                        console.log('Paper had no chance. Scissors win!');
+                        playerWin++;
+                        break;
+
+                };
+            }
+
+        else if (computerSelection === 'Scissors') {
+
+                switch (playerSelection) {
+
+                    case 'Rock':
+                        console.log('Rock and Scissors don\'t mix well. You win.');
+                        playerWin++;
+                        break;
+
+                    case 'Paper':
+                        console.log('With you puny Paper you tried to take on Scissors? Fool. You lose.');
+                        computerWin++;
+                        break;
+
+                    case 'Scissors':
+                        console.log('Scissoring intensifies. A draw.');
+                        break;
+                };
+        }
+
+            
+        else {
+                console.log('Something is seriously wrong with the game. Computer cheated!');
+            }
+    
+        if (playerWin > 0) {
+            console.log('Player wins this time!');
+            return 'player';
+        } 
+        else if (computerWin > 0) {
+            console.log('Computer wins this time!');
+            return 'computer';
+        }
+        else {
+            console.log('A draw for this round!')
+            return 'draw'
+        }
+    };
+        
+
+    
+
+    //Create a function game() that loops over playRound() 5 times, keeps the score and returns a winner in the end
+
+    function game() {
+        let thisRound = 0;
+        let playerScore = 0;
+        let computerScore = 0;
+
+        for (let i = 0; i < 5; i++){ 
+            thisRound = playRound(getPlayerChoice(), getComputerChoice());
+            
+            console.log(`This is round ${i+1}. FIGHT.`);
+            if (thisRound === 'player') {
+                playerScore++;
+                console.log('Player scores!')
+            }
+            else if (thisRound === 'computer') {
+                computerScore++;
+                console.log('Computer scores!');
+            };
+        };
+
+        if (playerScore > computerScore) {
+            console.log(`Player wins! Player: ${playerScore}, Computer: ${computerScore}`)
+        } else if (computerScore > playerScore) {
+            console.log(`Computer wins! Player: ${playerScore}, Computer: ${computerScore}`)
+        } else if (computerScore === playerScore) {
+            console.log(`Whoa, a draw! Player: ${playerScore}, Computer: ${computerScore}`)
+        } else {
+            console.log('Some weird winners in the Game() function!')
+        };
+    }
+    
+    game();
+
+
+</script>
+
