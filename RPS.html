@@ -9,32 +9,19 @@
         return (string.charAt(0).toUpperCase() + string.slice(1));
     };
 
-    //Create a function that checks wether user's input is valid
-
-    function isValidChoice(string) {
-        string = format(string);
-        if ((string === 'Rock') || (string === 'Paper') || (string === 'Scissors')) {
-            return true;
-        } else {
-            return false;
-        };
-    };
-
-    //Create a function that gets player's input, checks for validity and returns it
+    //Create a function that takes user input, checks for validity and returns it as userChocie if valid
 
     function getPlayerChoice() {
-        selection = format((prompt('Rock, Paper or Scissors?')));
-
-    
-        if (!isValidChoice(selection)) {
-            while (!isValidChoice(selection)) {
+        userChoice = format((prompt('Rock, Paper or Scissors?')));
+            while (!(userChoice === 'Rock') && !(userChoice === 'Paper') && !(userChoice === 'Scissors')) {
                 alert('Please, adhere to the provided choices, Test Subject #782!');
-                selection = format((prompt('Rock, Paper or Scissors?')));
-            }
-        };        
-        return selection;
+                userChoice = format((prompt('Rock, Paper or Scissors?')));
+            };
+            
+        return userChoice;
     };
     
+
 
     //Create a function that gets computer's choice
 
@@ -60,11 +47,6 @@
     and returns the results formatted in this way: "You Lose! Paper beats Rock". 
     NOTE 1: make sure that playerSelection is case insensitive
     NOTE 2: function should _return_ the result*/
-
-    //console.log(getPlayerChoice());
-    
-    //function playRound(playerSelection, computerSelection) {}
-
     
 
     function playRound(playerSelection, computerSelection) {
@@ -129,31 +111,25 @@
                         console.log('Scissoring intensifies. A draw.');
                         break;
                 };
-        }
-
-            
-        else {
+        }   else {
                 console.log('Something is seriously wrong with the game. Computer cheated!');
-            }
-    
+
+        };
+
         if (playerWin > 0) {
-            console.log('Player wins this time!');
             return 'player';
-        } 
-        else if (computerWin > 0) {
-            console.log('Computer wins this time!');
+        } else if (computerWin > 0) {
             return 'computer';
-        }
-        else {
-            console.log('A draw for this round!')
+        } else if ((playerWin === 0) && (computerWin === 0)) {
             return 'draw'
-        }
+        } else {
+            return 'Something is wrong!'
+        };
     };
         
 
-    
-
     //Create a function game() that loops over playRound() 5 times, keeps the score and returns a winner in the end
+
 
     function game() {
         let thisRound = 0;
@@ -161,16 +137,20 @@
         let computerScore = 0;
 
         for (let i = 0; i < 5; i++){ 
+            console.log(`This is round ${i+1}. FIGHT.`);
             thisRound = playRound(getPlayerChoice(), getComputerChoice());
             
-            console.log(`This is round ${i+1}. FIGHT.`);
             if (thisRound === 'player') {
                 playerScore++;
                 console.log('Player scores!')
-            }
-            else if (thisRound === 'computer') {
+                console.log(' ');
+            } else if (thisRound === 'computer') {
                 computerScore++;
                 console.log('Computer scores!');
+                console.log(' ');
+            } else {
+                console.log('No one scores!');
+                console.log(' ');
             };
         };
 
@@ -185,6 +165,9 @@
         };
     }
     
+
+    //Calling a function
+
     game();
 
 
